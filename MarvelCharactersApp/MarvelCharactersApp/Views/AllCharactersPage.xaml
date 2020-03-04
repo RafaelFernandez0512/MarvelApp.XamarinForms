@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:MarvelCharactersApp.Converters"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="MarvelCharactersApp.Views.AllCharactersPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageToImageUriConverter x:Key="ImageUriConverter"/>
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        
+            <CollectionView ItemsSource="{Binding Characters}" 
+                        ItemSizingStrategy="MeasureAllItems"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectCharacter}"
+                      >
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       SnapPointsType="Mandatory"
+                                       ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <pancakeview:PancakeView 
+                BackgroundColor="#17141E"
+                    CornerRadius="15" >
+                            <Grid RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding ImageCharacter,Converter={StaticResource ImageUriConverter}}"
+                               Aspect="AspectFill"
+                               Grid.Column="0"/>
+                            <Label Text="{Binding Name}"
+                                   TextColor="White"
+                                   Margin="10,0,0,0"
+                                   Grid.Column="1"
+                                   FontSize="20"
+                                   VerticalOptions="CenterAndExpand"
+                                   />
+                            </Grid>
+
+                        </pancakeview:PancakeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:MarvelCharactersApp.Converters"
+             xmlns:controls="clr-namespace:MarvelCharactersApp.Views.Controls"
+             mc:Ignorable="d"
+             x:Class="MarvelCharactersApp.Views.CharacterPage">
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <converters:BoolToSizeImageConverter x:Key="BoolToSizeImageConverterKey"/>
+            <converters:ImageToImageUriConverter x:Key="ImageUriConverterKey"/>
+            <Style TargetType="Label" x:Key="LabelTitle">
+                <Setter Property="FontSize" Value="50"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="LabelSubTitle">
+                <Setter Property="FontSize" Value="28"/>
+            </Style>
+            <Style TargetType="Button" x:Key="ButtonReadMore">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BorderColor" Value="#ED1D24"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="HeightRequest" Value="50"/>
+
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Image  HeightRequest="{Binding IsVisible,Converter={StaticResource BoolToSizeImageConverterKey}}"
+                   Source="{Binding Character.ImageCharacter,Converter={StaticResource ImageUriConverterKey}}"
+                   Aspect="AspectFill"/>
+                <Image HorizontalOptions="EndAndExpand"
+                   Source="marvelcomicslogo.png"
+                   HeightRequest="50"
+                   Margin="0,-52,0,0"
+                   WidthRequest="50"/>
+
+                <Label 
+                   Text="{Binding Character.Name, FallbackValue='Name'}"
+                   Style="{StaticResource LabelTitle}"/>
+                <Button Text="Know more"
+                    Style="{StaticResource ButtonReadMore}"
+                    HorizontalOptions="StartAndExpand"
+                     Command="{Binding ReadMoreCommand}"
+                        ImageSource="ic_action_arrow_right_alt.png"
+                       ContentLayout="Right,10"
+                    />
+                <Grid IsVisible="{Binding IsVisible}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="230"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="Comics"
+                           FontSize="40"
+                           />
+                    <controls:CardMavelView
+                        Grid.Row="1"
+                          ItemsSource="{Binding Comics}"
+                        />
+                    <Label Text="Description" 
+                           Grid.Row="2"
+                           FontSize="24"/>
+                    <Label  Text="{Binding Character.Description, FallbackValue='Description'}"  
+                            Style="{StaticResource LabelSubTitle}"
+                            Grid.Row="3"
+                   />
+
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

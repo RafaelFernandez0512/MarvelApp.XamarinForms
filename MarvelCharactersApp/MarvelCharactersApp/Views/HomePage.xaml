@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:MarvelCharactersApp.Views.Controls"
+             mc:Ignorable="d"
+             x:Class="MarvelCharactersApp.Views.HomePage"
+             Title="Home"
+             BackgroundImageSource="backgroundImage.jpeg"
+             NavigationPage.HasNavigationBar="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label Text="Popular characters" 
+                   FontSize="40"
+                   FontAttributes="Bold"
+                   Grid.Row="1"/>
+                <Label BackgroundColor="Black"
+                       HeightRequest="1"/>
+                <controls:CardMavelView
+                    ItemsSource="{Binding Characters}"
+                    HeightRequest="250"
+               />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

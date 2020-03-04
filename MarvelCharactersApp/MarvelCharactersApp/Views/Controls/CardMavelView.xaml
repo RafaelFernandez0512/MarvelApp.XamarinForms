@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:MarvelCharactersApp.Converters"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="MarvelCharactersApp.Views.Controls.CardMavelView"
+             x:Name="This">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ImageToImageUriConverter x:Key="ImageUriConverter"/>
+        </ResourceDictionary>
+
+    </ContentView.Resources>
+    <ContentView.Content>
+        <CollectionView ItemsSource="{Binding ItemsSource,Source={x:Reference This}}" 
+                        x:Name="xItemsLists"
+                      VerticalOptions="End"
+                        ItemSizingStrategy="MeasureAllItems"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectCharacter}"
+                      >
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"
+                                       SnapPointsAlignment="Start"
+                                       SnapPointsType="Mandatory"
+                                       ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <pancakeview:PancakeView 
+                BackgroundColor="#17141E"
+                    CornerRadius="15" 
+                        Margin="0,0,70,90">
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding ImageCharacter,Converter={StaticResource ImageUriConverter}}"
+                               Aspect="AspectFill"
+                               Grid.Row="0"/>
+                            <Label BackgroundColor="#F0131E"
+                               Grid.Row="1" />
+                            <Label Text="{Binding Name}"
+                                   TextColor="White"
+                                   Margin="10,0,0,0"
+                                   Grid.Row="2"/>
+                        </Grid>
+
+                    </pancakeview:PancakeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentView.Content>
+</ContentView>
