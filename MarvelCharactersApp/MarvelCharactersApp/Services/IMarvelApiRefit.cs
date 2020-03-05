@@ -9,10 +9,10 @@ namespace MarvelCharactersApp.Services
 {   
     public interface IMarvelApiRefit
     {
-        [Get("/v1/public/characters?orderBy=-modified&limit=50&apikey=445556eb3e7671e571444d16f5c27178&hash=aa94487622d2f42736c0f89b617b7381&ts=1")]
-        Task<Result> GetModifiedCharacter();
-        [Get("/v1/public/characters/{id}/comics?limit=5&apikey=445556eb3e7671e571444d16f5c27178&hash=aa94487622d2f42736c0f89b617b7381&ts=1")]
-        Task<ResultComics> GetComicCharacter(string id);
+        [Get("/v1/public/characters?orderBy=-modified&limit=50&ts=1&apikey={apikey}&hash={hash}")]
+        Task<Result> GetModifiedCharacter(string apikey, string hash);
+        [Get("/v1/public/characters/{id}/comics?limit=5&apikey={apikey}&hash={hash}&ts={ts}")]
+        Task<ResultComics> GetComicCharacter(string id,string apikey,string hash,string ts);
 
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MarvelCharactersApp.ViewModels
@@ -34,10 +35,24 @@ namespace MarvelCharactersApp.ViewModels
         }
         async void LoadComics()
         {
-            string id = Convert.ToString(Character.Id);
-            var listComic = await marvelApi.GetComicCharacter(id);
-            
-            Comics = new ObservableCollection<Comic>(listComic.Data.Comics);
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    string id = Convert.ToString(Character.Id);
+                    var listComic = await marvelApi.GetComicCharacter(id);
+                    Comics = new ObservableCollection<Comic>(listComic.Data.Comics);
+                }
+                catch (Exception err)
+                {
+                    await App.Current.MainPage.DisplayAlert("Connection error ", err.Message, "Ok");
+                }
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Connection error ", Connectivity.NetworkAccess.ToString(), "Ok");
+            }
         }
     }
 }
